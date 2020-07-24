@@ -94,7 +94,7 @@ public class KeyWordEngine {
 						System.out.println("url not empty"+value);
 						driver.get(value);
 					}
-					Thread.sleep(15000);
+					Thread.sleep(10000);
 					break;
 				case "quit":
 					driver.quit();
@@ -106,7 +106,9 @@ public class KeyWordEngine {
 
 				System.out.println("switch for locator = "+ locatorType);
 				System.out.println("switch for locator value = "+ locatorValue);
+				Thread.sleep(7000);
 				if(!(locatorType.equalsIgnoreCase("NA"))) {
+					
 					//switch based on locator
 					switch (locatorType) {
 					case "id":
@@ -117,14 +119,93 @@ public class KeyWordEngine {
 							element.sendKeys(value);
 						} else if(action.equalsIgnoreCase("click")) {
 							element.click();
+						} else if(action.equalsIgnoreCase("isDisplayed")) {
+							element.isDisplayed();						
+						} else if(action.equalsIgnoreCase("getText")) {
+							String elementText = element.getText();
+							System.out.println("text from element: " + elementText);
 						}
 						locatorType = null;
 						break;
+						
+					case "name":
+						element = driver.findElement(By.name(locatorValue));
+						//either sendkeys or click based on action
+						if(action.equalsIgnoreCase("sendkeys")) {
+							element.clear();
+							element.sendKeys(value);
+						} else if(action.equalsIgnoreCase("click")) {
+							element.click();
+						} else if(action.equalsIgnoreCase("isDisplayed")) {
+							element.isDisplayed();						
+						} else if(action.equalsIgnoreCase("getText")) {
+							String elementText = element.getText();
+							System.out.println("text from element: " + elementText);
+						}
+						locatorType = null;
+						break;
+						
+					case "xpath":
+						element = driver.findElement(By.xpath(locatorValue));
+						//either sendkeys or click based on action
+						if(action.equalsIgnoreCase("sendkeys")) {
+							element.clear();
+							element.sendKeys(value);
+						} else if(action.equalsIgnoreCase("click")) {
+							element.click();
+						} else if(action.equalsIgnoreCase("isDisplayed")) {
+							element.isDisplayed();						
+						}else if(action.equalsIgnoreCase("getText")) {
+							String elementText = element.getText();
+							System.out.println("text from element: " + elementText);
+						}
+						break;
+						
+					case "className":
+						element = driver.findElement(By.className(locatorValue));
+						//either sendkeys or click based on action
+						if(action.equalsIgnoreCase("sendkeys")) {
+							element.clear();
+							element.sendKeys(value);
+						} else if(action.equalsIgnoreCase("click")) {
+							element.click();
+						} else if(action.equalsIgnoreCase("isDisplayed")) {
+							element.isDisplayed();						
+						} else if(action.equalsIgnoreCase("getText")) {
+							String elementText = element.getText();
+							System.out.println("text from element: " + elementText);
+						}
+						break;
+						
+					case "cssSelector":
+						element = driver.findElement(By.cssSelector(locatorValue));
+						//either sendkeys or click based on action
+						if(action.equalsIgnoreCase("sendkeys")) {
+							element.clear();
+							element.sendKeys(value);
+						} else if(action.equalsIgnoreCase("click")) {
+							element.click();
+						} else if(action.equalsIgnoreCase("isDisplayed")) {
+							element.isDisplayed();						
+						} else if(action.equalsIgnoreCase("getText")) {
+							String elementText = element.getText();
+							System.out.println("text from element: " + elementText);
+						}
+						locatorType = null;
+						break;
+						
 					case "linkText":
 						element = driver.findElement(By.linkText(locatorValue));
 						element.click();
 						locatorType = null;
 						break;
+						
+					case "partialLinkText":
+						element = driver.findElement(By.partialLinkText(locatorValue));
+						element.click();
+						locatorType = null;
+						break;
+						
 					default:
 						break;
 					}
