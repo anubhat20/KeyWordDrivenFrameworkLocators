@@ -41,7 +41,7 @@ public class Base {
 	public Properties initProperties() {
 		prop = new Properties();
 		try {
-			FileInputStream ip = new FileInputStream("D:\\Selenium_workspace\\KeywordDrivenHubSpot\\"
+			FileInputStream ip = new FileInputStream("D:\\Selenium_workspace\\KeywordDrivenHubSpotLocators\\"
 									+ "src\\main\\java\\com\\qa\\hs\\keyword\\config\\config.properties");
 			prop.load(ip);
 		} catch (FileNotFoundException e) {

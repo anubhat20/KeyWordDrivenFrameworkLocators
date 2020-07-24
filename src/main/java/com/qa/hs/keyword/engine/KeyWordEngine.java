@@ -33,13 +33,11 @@ public class KeyWordEngine {
 	public Base base;
 	WebElement element;
 
-	public final String SCENARIO_SHEET_PATH = "D:\\Selenium_workspace\\KeywordDrivenHubSpot\\"
+	public final String SCENARIO_SHEET_PATH = "D:\\Selenium_workspace\\KeywordDrivenHubSpotLocators\\"
 			+ "src\\main\\java\\com\\qa\\hs\\keyword\\scenarios\\hubspot_scenarios.xlsx";
 
 	public void startExecution(String sheetName) {
 
-		String locatorName = null;
-		String locatorValue = null;
 		FileInputStream file = null;
 
 		try {
@@ -65,17 +63,12 @@ public class KeyWordEngine {
 
 				//i will start from second row where actual data starts
 				//k will point to second column to get locator value
-				String locatorColValue = sheet.getRow(i + 1).getCell(k + 1).toString().trim(); // id=username
-
-				//gets data where locator value is not "NA"
-				if(!(locatorColValue.equalsIgnoreCase("NA"))) {
-					locatorName = locatorColValue.split("=")[0].trim(); // id
-					locatorValue = locatorColValue.split("=")[1].trim(); //username
-				}
+				String locatorType = sheet.getRow(i + 1).getCell(k + 1).toString().trim(); // id
+				String locatorValue = sheet.getRow(i + 1).getCell(k + 2).toString().trim(); // username
 
 				//get data for action and value at third and fourth column in same row
-				String action = sheet.getRow(i + 1).getCell(k + 2).toString().trim(); // sendkeys
-				String value = sheet.getRow(i + 1).getCell(k + 3).toString().trim(); // naveenanimation20@gmail.com
+				String action = sheet.getRow(i + 1).getCell(k + 3).toString().trim(); // sendkeys
+				String value = sheet.getRow(i + 1).getCell(k + 4).toString().trim(); // naveenanimation20@gmail.com
 
 				//switch based on action
 				switch (action) {
@@ -111,11 +104,11 @@ public class KeyWordEngine {
 					break;
 				}
 
-				System.out.println("switch for locator = "+ locatorName);
+				System.out.println("switch for locator = "+ locatorType);
 				System.out.println("switch for locator value = "+ locatorValue);
-				if(!(locatorColValue.equalsIgnoreCase("NA"))) {
+				if(!(locatorType.equalsIgnoreCase("NA"))) {
 					//switch based on locator
-					switch (locatorName) {
+					switch (locatorType) {
 					case "id":
 						element = driver.findElement(By.id(locatorValue));
 						//either sendkeys or click based on action
@@ -125,12 +118,12 @@ public class KeyWordEngine {
 						} else if(action.equalsIgnoreCase("click")) {
 							element.click();
 						}
-						locatorName = null;
+						locatorType = null;
 						break;
 					case "linkText":
 						element = driver.findElement(By.linkText(locatorValue));
 						element.click();
-						locatorName = null;
+						locatorType = null;
 						break;
 					default:
 						break;
